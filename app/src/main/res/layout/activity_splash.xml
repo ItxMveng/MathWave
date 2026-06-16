@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background">
+
+    <!-- Cercle décoratif haut-droite -->
+    <View
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_gravity="top|end"
+        android:translationX="100dp"
+        android:translationY="-100dp"
+        android:alpha="0.12"
+        android:background="@drawable/splash_circle" />
+
+    <!-- Cercle décoratif bas-gauche -->
+    <View
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="bottom|start"
+        android:translationX="-70dp"
+        android:translationY="70dp"
+        android:alpha="0.10"
+        android:background="@drawable/splash_circle" />
+
+    <!-- Cercle décoratif milieu gauche (petit) -->
+    <View
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical|start"
+        android:translationX="-30dp"
+        android:alpha="0.08"
+        android:background="@drawable/splash_circle" />
+
+    <!-- Contenu central -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="48dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Fond blanc arrondi derrière le logo -->
+        <FrameLayout
+            android:id="@+id/ivLogoContainer"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/splash_logo_bg">
+
+            <ImageView
+                android:id="@+id/ivSplashLogo"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                android:contentDescription="Logo MathWave" />
+        </FrameLayout>
+
+        <!-- Titre -->
+        <TextView
+            android:id="@+id/tvSplashTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MathWave"
+            android:textColor="#FFFFFF"
+            android:textSize="38sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="10dp"
+            android:letterSpacing="0.02" />
+
+        <!-- Séparateur orange clair -->
+        <View
+            android:id="@+id/vSplashDivider"
+            android:layout_width="48dp"
+            android:layout_height="3dp"
+            android:background="#FFFFFF"
+            android:alpha="0.6"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Sous-titre -->
+        <TextView
+            android:id="@+id/tvSplashSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENIB · Mathématiques &amp; Musique"
+            android:textColor="#FFFFFFCC"
+            android:textSize="14sp"
+            android:letterSpacing="0.05" />
+
+    </LinearLayout>
+
+    <!-- Version en bas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="36dp"
+        android:text="v1.0"
+        android:textColor="#FFFFFF66"
+        android:textSize="12sp" />
+
+</FrameLayout>

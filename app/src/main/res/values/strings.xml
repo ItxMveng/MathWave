@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MathWave</string>
+
+    <!-- Navigation -->
+    <string name="nav_math_to_music">Fonction → Musique</string>
+    <string name="nav_music_to_math">Musique → Fonction</string>
+
+    <!-- Écran Math -->
+    <string name="hint_function_input">Ex: sin(x) + x/2</string>
+    <string name="btn_generate">Générer le graphique</string>
+    <string name="btn_play">▶ Écouter</string>
+    <string name="btn_stop">■ Stop</string>
+    <string name="label_graph">Représentation graphique</string>
+
+    <!-- Écran Music -->
+    <string name="btn_import_audio">Importer un fichier audio</string>
+    <string name="label_detected_function">Fonction détectée</string>
+    <string name="label_analyzing">Analyse en cours…</string>
+
+    <!-- Messages d\'erreur -->
+    <string name="error_invalid_function">Fonction invalide. Vérifie la syntaxe.</string>
+    <string name="error_import_failed">Impossible de lire ce fichier audio.</string>
+</resources>

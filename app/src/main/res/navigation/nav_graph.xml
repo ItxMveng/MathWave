@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mathInputFragment">
+
+    <fragment
+        android:id="@+id/mathInputFragment"
+        android:name="com.example.enib.ui.math.MathInputFragment"
+        android:label="Fonction → Musique" />
+
+    <fragment
+        android:id="@+id/musicImportFragment"
+        android:name="com.example.enib.ui.music.MusicImportFragment"
+        android:label="Musique → Fonction" />
+
+</navigation>

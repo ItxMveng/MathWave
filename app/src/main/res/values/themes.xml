@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+
+    <style name="Theme.Enib" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Couleur principale : boutons, FAB, éléments actifs -->
+        <item name="colorPrimary">@color/enib_orange</item>
+        <!-- Variante foncée : toolbar, status bar -->
+        <item name="colorPrimaryVariant">@color/enib_orange_dark</item>
+        <!-- Texte/icônes SUR la couleur primaire (doit contraster) -->
+        <item name="colorOnPrimary">@color/enib_white</item>
+
+        <!-- Couleur secondaire : éléments d'accentuation secondaires -->
+        <item name="colorSecondary">@color/enib_orange_light</item>
+        <item name="colorSecondaryVariant">@color/enib_orange</item>
+        <item name="colorOnSecondary">@color/enib_orange_dark</item>
+
+        <!-- Fond général de l'app -->
+        <item name="android:colorBackground">@color/enib_background</item>
+
+        <!-- Surfaces : cards, bottom sheets, dialogs -->
+        <item name="colorSurface">@color/enib_surface</item>
+        <item name="colorOnSurface">@color/enib_text_primary</item>
+
+        <!-- Erreurs -->
+        <item name="colorError">@color/enib_error</item>
+
+        <!-- Pas de ActionBar par défaut, on gère notre propre toolbar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Coins arrondis globaux pour les composants Material -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Enib.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Enib.Medium</item>
+
+    </style>
+
+    <!-- Thème Splash Screen : plein écran, barres orange -->
+    <style name="Theme.Enib.Splash" parent="Theme.Enib">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">#FF6600</item>
+        <item name="android:navigationBarColor">#B34700</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <!-- Coins arrondis : style "moderne" -->
+    <style name="ShapeAppearance.Enib.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Enib.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+</resources>

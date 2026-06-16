@@ -1,0 +1,18 @@
+<resources>
+    <style name="Theme.Enib" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/enib_orange</item>
+        <item name="colorPrimaryVariant">@color/enib_orange_dark</item>
+        <item name="colorOnPrimary">@color/enib_white</item>
+        <item name="colorSecondary">@color/enib_orange_light</item>
+        <item name="colorSecondaryVariant">@color/enib_orange</item>
+        <item name="colorOnSecondary">@color/enib_orange_dark</item>
+        <item name="android:colorBackground">#1A1A1A</item>
+        <item name="colorSurface">#2C2C2C</item>
+        <item name="colorOnSurface">@color/enib_white</item>
+        <item name="colorError">@color/enib_error</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Enib.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Enib.Medium</item>
+    </style>
+</resources>

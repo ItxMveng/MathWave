@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLACEHOLDER — Remplace ce fichier par ton logo.png :
+    Copie logo.png dans ce même dossier (res/drawable-nodpi/logo.png)
+    puis supprime ce fichier logo.xml.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Fond blanc -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,4C27.49,4 6,25.49 6,52C6,78.51 27.49,100 54,100C80.51,100 102,78.51 102,52C102,25.49 80.51,4 54,4Z" />
+
+    <!-- Courbe sinusoïdale orange (symbole math + musique) -->
+    <path
+        android:strokeColor="#FF6600"
+        android:strokeWidth="4.5"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M14,52 Q22,28 30,52 Q38,76 46,52 Q54,28 62,52 Q70,76 78,52 Q86,28 94,52" />
+
+    <!-- Point accent orange -->
+    <path
+        android:fillColor="#FF6600"
+        android:pathData="M54,44 C57.31,44 60,46.69 60,50 C60,53.31 57.31,56 54,56 C50.69,56 48,53.31 48,50 C48,46.69 50.69,44 54,44Z" />
+
+</vector>
