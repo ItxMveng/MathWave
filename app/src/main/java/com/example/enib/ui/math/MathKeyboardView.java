@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class MathKeyboardView extends LinearLayout {
 
     private TextInputEditText targetInput;
+    private Runnable onConfirm;
 
     // Rows of the scientific keyboard
     private static final String[][] ROWS = {
@@ -123,12 +124,19 @@ public class MathKeyboardView extends LinearLayout {
         this.targetInput = input;
     }
 
+    public void setOnConfirm(Runnable onConfirm) {
+        this.onConfirm = onConfirm;
+    }
+
     private void handleKey(String key) {
         if (targetInput == null) return;
         switch (key) {
             case "⌫":    deleteAtCursor(); break;
             case "AC":   targetInput.setText(""); break;
-            case "✓":    setVisibility(GONE); break;
+            case "✓":
+                if (onConfirm != null) onConfirm.run();
+                else setVisibility(GONE);
+                break;
             case "×":    insert("*"); break;
             case "÷":    insert("/"); break;
             // π → exp4j built-in constant "pi"

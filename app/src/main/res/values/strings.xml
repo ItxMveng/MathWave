@@ -12,6 +12,8 @@
     <string name="btn_stop">■ Stop</string>
     <string name="label_graph">Représentation graphique</string>
 
+    <string name="error_audio_playback">Impossible de démarrer la lecture audio.</string>
+
     <!-- Écran Music -->
     <string name="btn_import_audio">Importer un fichier audio</string>
     <string name="label_detected_function">Fonction détectée</string>
@@ -20,4 +22,45 @@
     <!-- Messages d\'erreur -->
     <string name="error_invalid_function">Fonction invalide. Vérifie la syntaxe.</string>
     <string name="error_import_failed">Impossible de lire ce fichier audio.</string>
+    <string name="studio_title">Donnez une voix aux maths</string>
+    <string name="studio_function">f(x) · Touchez pour modifier</string>
+    <string name="studio_examples">Exemples à explorer</string>
+    <string name="studio_example_description">Explorer %1$s</string>
+    <string-array name="studio_example_names">
+        <item>Onde</item>
+        <item>Accélération</item>
+        <item>Battements</item>
+        <item>ECG</item>
+        <item>Parabole</item>
+        <item>Amortie</item>
+    </string-array>
+    <string name="studio_mode_curve">Courbe sonore</string>
+    <string name="studio_mode_rhythm">Percussions</string>
+    <string name="studio_curve_help">La hauteur et le volume suivent f(x). Les variations créent des accents.</string>
+    <string name="studio_rhythm_help">Les sommets, creux et déplacements de la courbe créent les frappes.</string>
+    <string name="studio_settings">Réglages</string>
+    <string name="studio_ready">PRÊT À EXPLORER</string>
+    <string name="studio_changed">FONCTION MODIFIÉE · Touchez Écouter</string>
+    <string name="studio_preparing">PRÉPARATION DU SON…</string>
+    <string name="studio_playing">LECTURE SYNCHRONISÉE</string>
+    <string name="studio_finished">TERMINÉ · Réécouter ou changer de fonction</string>
+    <string name="studio_stopped">À L’ARRÊT</string>
+    <string name="studio_check_function">VÉRIFIEZ LA FONCTION</string>
+    <string name="studio_chart_description">Courbe interactive de la fonction, avec curseur synchronisé au son</string>
+    <string name="studio_chart_empty">Tracez une fonction ou choisissez un exemple</string>
+    <string name="studio_values_idle">x → position · f(x) → son</string>
+    <string name="studio_range">x ∈ [%1$.2f, %2$.2f] · lecture %3$.0f s</string>
+    <string name="studio_readout">%1$.1f s   x = %2$.2f   f(x) = %3$s</string>
+    <string name="studio_undefined">indéfini</string>
+    <string name="studio_generate">Tracer</string>
+    <string name="studio_play">▶ Écouter</string>
+    <string name="studio_stop">Stop</string>
+    <string name="studio_loading">Calcul…</string>
+    <string name="studio_x_min">Début de x</string>
+    <string name="studio_x_max">Fin de x</string>
+    <string name="studio_duration">Durée de lecture (secondes)</string>
+    <string name="studio_settings_help">Le curseur parcourt cet intervalle pendant la durée choisie. Une durée plus courte accélère les variations et les frappes. Une constante non nulle donne un son tenu, zéro reste silencieux. Aucune percussion sur une constante.</string>
+    <string name="studio_settings_error">La fin doit dépasser le début. Utilisez des bornes entre −100 000 et 100 000 et une durée de 2 à 30 secondes.</string>
+    <string name="studio_cancel">Annuler</string>
+    <string name="studio_apply">Appliquer</string>
 </resources>
