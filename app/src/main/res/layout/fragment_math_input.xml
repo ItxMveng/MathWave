@@ -1,282 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     android:background="@color/enib_background">
 
-    <!-- Scrollable content area -->
-    <ScrollView
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/studio_title"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/enib_text_primary" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFunctionInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:hint="@string/studio_function"
+        app:boxStrokeColor="@color/enib_orange">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFunctionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="52dp"
+            android:inputType="textNoSuggestions"
+            android:singleLine="true"
+            android:fontFamily="monospace"
+            android:textSize="17sp"
+            android:textColor="@color/enib_text_primary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:scrollbars="none"
+        android:contentDescription="@string/studio_examples">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupSuggestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true"
+            app:chipSpacingHorizontal="6dp" />
+    </HorizontalScrollView>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/soundModes"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:checkedButton="@+id/modeCurve">
+        <com.google.android.material.button.MaterialButton
+            android:id="@id/modeCurve"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/studio_mode_curve"
+            android:textAllCaps="false" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/modeRhythm"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/studio_mode_rhythm"
+            android:textAllCaps="false" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/modeDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/studio_curve_help"
+        android:textColor="@color/enib_text_secondary"
+        android:textSize="12sp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGraph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
-
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="#101E2B"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- ══════════════════════════════════════ -->
-            <!-- Card 1 : Saisie de la fonction         -->
-            <!-- ══════════════════════════════════════ -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeColor="@color/enib_grey_light"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="4dp">
-
-                        <View
-                            android:layout_width="4dp"
-                            android:layout_height="24dp"
-                            android:background="@color/enib_orange"
-                            android:layout_marginEnd="10dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Fonction mathématique"
-                            android:textColor="@color/enib_text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:text="Utilisez le clavier scientifique ci-dessous"
-                        android:textColor="@color/enib_text_secondary"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilFunctionInput"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_function_input"
-                        app:boxStrokeColor="@color/enib_orange"
-                        app:hintTextColor="@color/enib_orange"
-                        app:endIconMode="clear_text"
-                        app:endIconTint="@color/enib_orange">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etFunctionInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textNoSuggestions"
-                            android:textColor="@color/enib_text_primary"
-                            android:textSize="18sp"
-                            android:fontFamily="monospace"
-                            android:imeOptions="actionDone" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Chips suggestions rapides -->
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:scrollbars="none">
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/chipGroupSuggestions"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:singleLine="true">
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipSin"
-                                style="@style/Widget.MaterialComponents.Chip.Action"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="sin(x)"
-                                app:chipBackgroundColor="@color/enib_orange_light"
-                                app:chipStrokeColor="@color/enib_orange"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipCos"
-                                style="@style/Widget.MaterialComponents.Chip.Action"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="cos(x)"
-                                app:chipBackgroundColor="@color/enib_orange_light"
-                                app:chipStrokeColor="@color/enib_orange"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipTan"
-                                style="@style/Widget.MaterialComponents.Chip.Action"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="tan(x)"
-                                app:chipBackgroundColor="@color/enib_orange_light"
-                                app:chipStrokeColor="@color/enib_orange"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipX2"
-                                style="@style/Widget.MaterialComponents.Chip.Action"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="x²"
-                                app:chipBackgroundColor="@color/enib_orange_light"
-                                app:chipStrokeColor="@color/enib_orange"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipSqrt"
-                                style="@style/Widget.MaterialComponents.Chip.Action"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="√x"
-                                app:chipBackgroundColor="@color/enib_orange_light"
-                                app:chipStrokeColor="@color/enib_orange"
-                                app:chipStrokeWidth="1dp" />
-
-                        </com.google.android.material.chip.ChipGroup>
-                    </HorizontalScrollView>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ══════════════════════════════════════ -->
-            <!-- Card 2 : Graphique                     -->
-            <!-- ══════════════════════════════════════ -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardGraph"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeColor="@color/enib_grey_light"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
-
-                        <View
-                            android:layout_width="4dp"
-                            android:layout_height="24dp"
-                            android:background="@color/enib_orange"
-                            android:layout_marginEnd="10dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/label_graph"
-                            android:textColor="@color/enib_text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/lineChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="280dp"
-                        android:background="@color/graph_background" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ══════════════════════════════════════ -->
-            <!-- Boutons d'action                       -->
-            <!-- ══════════════════════════════════════ -->
+            android:padding="12dp">
             <LinearLayout
-                android:id="@+id/layoutButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnGenerate"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/btn_generate"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@color/enib_orange"
-                    app:cornerRadius="12dp"
-                    app:icon="@android:drawable/ic_menu_send"
-                    app:iconGravity="textStart" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/playbackStatus"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPlay"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/btn_play"
-                        android:textColor="@color/enib_orange"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="@color/enib_orange" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnStop"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/btn_stop"
-                        android:textColor="@color/enib_grey"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="@color/enib_grey" />
-
-                </LinearLayout>
-
+                    android:layout_weight="1"
+                    android:text="@string/studio_ready"
+                    android:textSize="12sp"
+                    android:textColor="#D9E8F2" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSettings"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minWidth="48dp"
+                    android:text="@string/studio_settings"
+                    android:textAllCaps="false"
+                    android:textColor="#FFD0AF" />
             </LinearLayout>
-
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/studio_chart_description" />
+            <TextView
+                android:id="@+id/playbackValues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_values_idle"
+                android:fontFamily="monospace"
+                android:textSize="12sp"
+                android:textColor="#A6C1D3" />
+            <ProgressBar
+                android:id="@+id/playbackProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="8dp"
+                android:max="1000"
+                android:progressTint="#5DE2B8"
+                android:progressBackgroundTint="#2A4051" />
         </LinearLayout>
-    </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <!-- Scientific math keyboard (shown on EditText focus) -->
-    <com.example.enib.ui.math.MathKeyboardView
-        android:id="@+id/mathKeyboard"
+    <LinearLayout
+        android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGenerate"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:text="@string/studio_generate"
+            android:textAllCaps="false"
+            android:textColor="@color/enib_orange_dark"
+            app:cornerRadius="14dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25"
+            android:layout_marginEnd="6dp"
+            android:text="@string/studio_play"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/enib_orange_dark"
+            app:cornerRadius="14dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStop"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="@string/studio_stop"
+            android:textAllCaps="false"
+            android:textColor="@color/enib_text_secondary"
+            app:cornerRadius="14dp" />
+    </LinearLayout>
 </LinearLayout>

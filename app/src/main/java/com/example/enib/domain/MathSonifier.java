@@ -2,40 +2,40 @@ package com.example.enib.domain;
 
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
+import android.media.AudioTimestamp;
 import android.media.AudioTrack;
 
 import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class MathSonifier {
 
-    private static final int SAMPLE_RATE = 44100;
+    private static final int SAMPLE_RATE = TimelineSignal.SAMPLE_RATE;
     private static final double PLAY_FREQ  = 440.0;   // Hz – note La4
     private static final int    WAVEFORM_SIZE = 2048;
     private static final int    DURATION_MS   = 3000;
 
     private AudioTrack audioTrack;
-    private Thread     playbackThread;
-    private volatile boolean playing = false;
+    private int totalFrames;
+    private final AudioTimestamp timestamp = new AudioTimestamp();
+    private long nextTimestampCheck;
+    private long anchorNanos;
+    private long anchorFrame;
+    private long displayedFrame;
+    private boolean hasTimestamp;
 
-    public interface Callback {
-        void onPlaybackComplete();
-        void onError(String message);
-    }
-
-    public void play(String expression, Callback callback) {
-        stop();
-
+    // Called on the main thread together with position() and stop().
+    public void playTimbre(String expression) {
         double[] waveform = buildWaveform(expression);
         if (waveform == null) {
-            if (callback != null) callback.onError("Impossible de générer l'audio pour cette fonction");
-            return;
+            throw new IllegalArgumentException("Impossible de générer l’audio pour cette fonction");
         }
+        play(generatePcm(waveform, SAMPLE_RATE * DURATION_MS / 1000));
+    }
 
-        int totalSamples = SAMPLE_RATE * DURATION_MS / 1000;
-        short[] pcm = generatePcm(waveform, totalSamples);
+    public void play(short[] pcm) {
+        stop();
 
-        int bufSize = pcm.length * 2; // 2 bytes per short
+        int bufSize = pcm.length * Short.BYTES;
         audioTrack = new AudioTrack.Builder()
                 .setAudioAttributes(new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -50,44 +50,58 @@ public class MathSonifier {
                 .setBufferSizeInBytes(bufSize)
                 .build();
 
-        audioTrack.write(pcm, 0, pcm.length);
-        playing = true;
-        audioTrack.play();
-
-        playbackThread = new Thread(() -> {
-            try {
-                Thread.sleep(DURATION_MS + 200);
-            } catch (InterruptedException ignored) {}
+        try {
+            if (audioTrack.write(pcm, 0, pcm.length) != pcm.length
+                    || audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
+                throw new IllegalStateException("Écriture audio incomplète");
+            }
+            totalFrames = pcm.length;
+            audioTrack.play();
+        } catch (RuntimeException error) {
             stop();
-            if (callback != null) callback.onPlaybackComplete();
-        });
-        playbackThread.setDaemon(true);
-        playbackThread.start();
+            throw error;
+        }
+    }
+
+    public double position() {
+        if (audioTrack == null) return 0;
+        long frames = Integer.toUnsignedLong(audioTrack.getPlaybackHeadPosition());
+        long now = System.nanoTime();
+        if (nextTimestampCheck == 0 || now >= nextTimestampCheck) {
+            if (audioTrack.getTimestamp(timestamp)) {
+                anchorNanos = timestamp.nanoTime;
+                anchorFrame = timestamp.framePosition;
+                hasTimestamp = true;
+            } else {
+                hasTimestamp = false;
+            }
+            nextTimestampCheck = now + 200_000_000L;
+        }
+        if (hasTimestamp) {
+            long estimated = anchorFrame + Math.round((now - anchorNanos) * (SAMPLE_RATE / 1e9));
+            frames = Math.min(frames, estimated);
+        }
+        displayedFrame = Math.max(displayedFrame, frames);
+        return Math.min(1.0, displayedFrame / (double) totalFrames);
     }
 
     public void stop() {
-        playing = false;
-        if (playbackThread != null) {
-            playbackThread.interrupt();
-            playbackThread = null;
-        }
-        if (audioTrack != null) {
-            try {
-                if (audioTrack.getState() != AudioTrack.STATE_UNINITIALIZED) {
-                    audioTrack.stop();
-                }
-                audioTrack.release();
-            } catch (Exception ignored) {}
+        if (audioTrack == null) return;
+        try {
+            if (audioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) audioTrack.stop();
+        } finally {
+            audioTrack.release();
             audioTrack = null;
+            nextTimestampCheck = 0;
+            displayedFrame = 0;
+            hasTimestamp = false;
         }
     }
-
-    public boolean isPlaying() { return playing; }
 
     // Builds a single-cycle waveform (2048 samples) from the function shape
     private double[] buildWaveform(String expr) {
         try {
-            Expression exp = new ExpressionBuilder(expr).variable("x").build();
+            Expression exp = MathFunctionParser.compile(expr);
             double[] waveform = new double[WAVEFORM_SIZE];
 
             for (int i = 0; i < WAVEFORM_SIZE; i++) {

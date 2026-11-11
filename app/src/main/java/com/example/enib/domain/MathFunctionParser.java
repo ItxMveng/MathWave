@@ -39,12 +39,13 @@ public class MathFunctionParser {
         public static ParseResult failure(String msg)           { return new ParseResult(msg); }
     }
 
+    static Expression compile(String expression) {
+        return new ExpressionBuilder(expression).variable("x").functions(FN_LN).build();
+    }
+
     public static ParseResult evaluate(String expression, double xMin, double xMax, int numPoints) {
         try {
-            Expression exp = new ExpressionBuilder(expression)
-                    .variable("x")
-                    .functions(FN_LN)
-                    .build();
+            Expression exp = compile(expression);
 
             var validation = exp.validate(false);
             if (!validation.isValid()) {

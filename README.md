@@ -50,10 +50,17 @@
 ## Fonctionnalités
 
 ### Fonction → Musique
+- **Courbe sonore** avec hauteur et volume liés à la fonction
+- **Percussions** calculées à partir des variations, sommets et creux
+- **Curseur et point lumineux synchronisés** sur la position de lecture Android
+- **Six exemples** pour explorer plusieurs comportements, dont un ECG
+- **Intervalle et durée réglables** de 2 à 30 secondes
+- **Commandes Tracer, Écouter et Stop accessibles ensemble**, en portrait et en paysage
+- **Calcul audio en arrière-plan**, avec annulation des requêtes remplacées
 - **Clavier scientifique** dédié avec 35 touches : trigonométrie (sin, cos, tan, asin, acos, atan), logarithmes (log, ln, log10), racines, valeur absolue, constantes π et e
 - **Chips de raccourcis** pour les fonctions courantes : `sin(x)`, `cos(x)`, `tan(x)`, `x²`, `sqrt(x)`
-- **Visualisation graphique interactive** (zoom, pan) via MPAndroidChart sur x ∈ [-10, 10] avec 300 points
-- **Sonification de la fonction** : génération audio PCM 44 100 Hz, 16 bits, à 440 Hz (La4) avec enveloppes de fondu
+- **Visualisation graphique interactive** avec zoom et déplacement sur la fonction générée
+- **Sonification de la fonction** en PCM 44 100 Hz, 16 bits, avec fondu aux raccords
 - Validation en temps réel de l'expression mathématique
 
 ### Musique → Fonction
@@ -75,6 +82,7 @@ app/src/main/java/com/example/enib/
 ├── domain/
 │   ├── AudioAnalyzer.java          # Décodage audio + analyse FFT
 │   ├── MathFunctionParser.java     # Parsing et évaluation d'expressions (exp4j)
+│   ├── TimelineSignal.java        # Échantillonnage, hauteur, volume et accents
 │   ├── MathSonifier.java           # Génération audio à partir d'une fonction
 │   └── SimpleFFT.java              # Implémentation FFT Cooley-Tukey radix-2
 └── ui/
@@ -103,7 +111,7 @@ app/src/main/java/com/example/enib/
 
 - Android Studio Hedgehog (ou supérieur)
 - Android SDK API 24+ (Android 7.0 Nougat)
-- JDK 11
+- JDK 21, utilisé pour la compilation vérifiée
 
 ---
 
@@ -145,12 +153,18 @@ Connectez un appareil Android (API 24+) ou démarrez un émulateur, puis cliquez
 
 ## Fonctionnement technique
 
-### Sonification d'une fonction
-1. La fonction f(x) est évaluée sur une période (2048 échantillons).
-2. Un fenêtrage de Hann est appliqué pour éviter les discontinuités.
-3. La forme d'onde est répétée à 440 Hz pendant 3 secondes.
-4. Des enveloppes de fondu (25 ms) sont ajoutées en début et fin.
-5. L'audio est diffusé en PCM 16 bits à 44 100 Hz.
+### Sonification d’une fonction
+1. La fonction est évaluée sur l’intervalle choisi. Les zones indéfinies sont silencieuses.
+2. Une compression logarithmique signée conserve les différences d’amplitude entre les fonctions.
+3. Le mode Courbe sonore utilise les valeurs pour piloter la hauteur et le volume, avec des accents calculés sur les variations.
+4. Le mode Percussions transforme les variations de la courbe en frappes.
+5. Le son est préparé en arrière-plan puis diffusé avec AudioTrack.
+6. Le curseur et l’animation suivent les horodatages de lecture Android, avec repli sur la position de lecture.
+
+### Essayer cette version
+Ouvrir Fonction → Musique, choisir un exemple puis toucher Écouter. Pour une formule personnelle, toucher le champ, saisir l’expression et toucher Tracer ou Écouter. Les réglages permettent de choisir l’intervalle de x et la durée.
+
+La compilation assembleDebug et l’analyse lintDebug ont été vérifiées. La saisie, la lecture, l’arrêt et les rotations portrait et paysage ont été testés sur un émulateur Android. Le moteur audio a également été vérifié sur les différences entre fonctions, les domaines négatifs et indéfinis, les variations de durée et les limites PCM.
 
 ### Analyse FFT d'un fichier audio
 1. Le fichier est décodé en PCM mono via MediaCodec.
